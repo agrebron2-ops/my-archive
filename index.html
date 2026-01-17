@@ -3,68 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Unblocked Games</title>
+    <title>Class Archive Project</title>
     <style>
-        body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; }
-        .game-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; }
-        .game-card { border: 2px solid #444; padding: 10px; border-radius: 10px; cursor: pointer; transition: 0.3s; width: 200px; }
-        .game-card:hover { border-color: #00ffcc; transform: scale(1.05); }
-        #game-container { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; }
-        #player { width: 80%; height: 80%; margin-top: 5%; }
-        .close-btn { position: absolute; top: 20px; right: 20px; font-size: 30px; cursor: pointer; color: red; }
+        /* Dark Theme Styling */
+        body { 
+            background-color: #121212; 
+            color: #e0e0e0; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            text-align: center; 
+        }
+
+        h1 { margin-bottom: 10px; color: #ffffff; }
+        p { color: #aaaaaa; margin-bottom: 30px; }
+
+        /* The Grid Layout */
+        .game-grid { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 20px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+
+        /* Individual Game Cards */
+        .game-card { 
+            background: #1e1e1e; 
+            border: 1px solid #333; 
+            border-radius: 8px; 
+            width: 200px; 
+            padding: 15px; 
+            cursor: pointer; 
+            transition: transform 0.2s, border-color 0.2s; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .game-card:hover { 
+            transform: translateY(-5px); 
+            border-color: #00bcd4; 
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background-color: #000;
+        }
+
+        .game-title { font-weight: bold; font-size: 1.1em; }
+
+        /* The Popup Player (Modal) */
+        #game-modal { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0, 0, 0, 0.95); 
+            z-index: 1000; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #player-wrapper {
+            width: 80%;
+            height: 80%;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+            background: #000;
+        }
+
+        .controls {
+            width: 80%;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+
+        .close-btn { 
+            background: #d32f2f; 
+            color: white; 
+            border: none; 
+            padding: 8px 16px; 
+            cursor: pointer; 
+            border-radius: 4px; 
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .close-btn:hover { background: #b71c1c; }
+
     </style>
 </head>
 <body>
 
-    <h1>Flash Game Archive</h1>
-    <p>Click a game to play!</p>
+    <h1>Unblocked Games</h1>
+    <p>Select a game to play.</p>
 
     <div class="game-grid">
+        
         <div class="game-card" onclick="playGame('alien_hominid.swf')">
-            <img src="game1-thumb.jpg" width="100%"><br>
-            Alien Hominid
+            <img src="https://via.placeholder.com/200x150?text=Game+1" alt="Game 1">
+            <div class="game-title">Alien Hominid</div>
         </div>
 
         <div class="game-card" onclick="playGame('bloonstd4exp.swf')">
-            <img src="game2-thumb.jpg" width="100%"><br>
-            BTD4
+            <img src="https://via.placeholder.com/200x150?text=Game+2" alt="Game 2">
+            <div class="game-title">BTD 4</div>
         </div>
-    </div>
-    
+
         <div class="game-card" onclick="playGame('brawl-royale-28995ed4.swf')">
-            <img src="game3-thumb.jpg" width="100%"><br>
-            Brawl Royale
+            <img src="https://via.placeholder.com/200x150?text=Game+3" alt="Game 3">
+            <div class="game-title">Brawl Royale</div>
         </div>
+
     </div>
 
-    <div id="game-container">
-        <span class="close-btn" onclick="closeGame()">&times; Close</span>
-        <div id="player"></div>
+    <div id="game-modal">
+        <div class="controls">
+            <button class="close-btn" onclick="closeGame()">X Close Game</button>
+        </div>
+        <div id="player-wrapper"></div>
     </div>
 
-   <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
-<script>
-    window.RufflePlayer = window.RufflePlayer || {};
-    window.RufflePlayer.config = {
-        "publicPath": undefined,
-        "polyfill": true
-    };
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <script>
+        // 1. Configure Ruffle
+        window.RufflePlayer = window.RufflePlayer || {};
+        
+        // 2. Initialize Player
+        window.addEventListener("load", (event) => {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            const container = document.getElementById("player-wrapper");
+            container.appendChild(player);
+            window.myRufflePlayer = player; // Save it to a global variable
+        });
 
-    const ruffle = window.RufflePlayer.newest();
-    const player = ruffle.createPlayer();
-    const container = document.getElementById("player");
-    container.appendChild(player);
+        // 3. Game Logic
+        function playGame(swfPath) {
+            const modal = document.getElementById('game-modal');
+            modal.style.display = "flex"; // Show the window
+            
+            // Load the specific SWF file
+            if (window.myRufflePlayer) {
+                window.myRufflePlayer.load(swfPath);
+            }
+        }
 
-    function playGame(swfFile) {
-        document.getElementById('game-container').style.display = 'block';
-        player.load(swfFile);
-    }
-
-    function closeGame() {
-        document.getElementById('game-container').style.display = 'none';
-        player.pause();
-    }
-</script>
-
+        function closeGame() {
+            const modal = document.getElementById('game-modal');
+            modal.style.display = "none"; // Hide the window
+            
+            // Stop the game audio/logic
+            if (window.myRufflePlayer) {
+                window.myRufflePlayer.pause();
+            }
+        }
+    </script>
+</body>
 </html>
-
