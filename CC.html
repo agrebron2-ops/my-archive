@@ -1,76 +1,208 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../styles/styles.css">
+  <link rel="stylesheet" href="../styles/responsive.css">
+  <script src="../scripts/homeinject.js" defer></script>
+  <script src="../scripts/injectgames.js" defer></script>
+  <script src="../scripts/script.js" defer></script>
+  <script src="../scripts/game-analytics.js" defer></script>
+  <script defer>
+      // Example: Run on page load
+      window.addEventListener("DOMContentLoaded", async () => {
+      rowData = await fetchRow("Sheet1", getIdByName("Cookie Clicker") + 1); // fetch row 2 of "Sheet1"
+      document.getElementById("stats").innerHTML = `${rowData[0] + 1} Views<br>${rowData[1] === "" ? "0" : rowData[1]} Likes`
+
+      // Example: increment cell A2
+      await incrementCell("Sheet1", "A" + String(getIdByName(document.getElementsByClassName("gamebar")[0].firstChild.innerHTML) + 1));
+      });
+  </script>
+  <meta name="description" content="Explore unblocked games Cookie Clicker 64/6x/g plus, ideal for school or work. Enjoy easy access and a beautiful interface for endless fun anywhere!">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="Cookie Clicker Unblocked - Unblocked Games 64">
+  <meta property="og:description" content="Explore unblocked games Cookie Clicker 64/6x/g plus, ideal for school or work. Enjoy easy access and a beautiful interface for endless fun anywhere!">
+  <meta property="og:image" content="../assets/logo.png">
+  <meta property="og:url" content="https://unblockedgames64.github.io/games/cookie-clicker.html">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <title>Cookie Clicker Unblocked - Unblocked Games 64</title>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Cookie Clicker",
+    "url": "https://unblockedgames64.github.io/games/cookie-clicker.html",
+    "image": "/assets/banners/cookie-clicker.png",
+    "description": "Explore unblocked games Cookie Clicker 64/6x/g plus, ideal for school or work. Enjoy easy access and a beautiful interface for endless fun anywhere!",
+    "genre": "Idle",
+    "operatingSystem": "Web browser",
+    "applicationCategory": "Game"
+  }
+  </script>
+</head>
 
 <body>
-	<div class="mdl-grid">
-		<div class="mdl-cell mdl-cell--1-col">
-			<div id="cookie">
-				<div id="chip"></div>
-				<div id="chip2"></div>
-				<div id="chip3"></div>
-				<div id="chip4"></div>
-			</div>
-		</div>
-		<div class="mdl-cell mdl-cell--1-col">
-			<div id="space"></div>
-		</div>
-	</div>
+  <div class="header glass">
+    <img src="../assets/logo.png" alt="Unblocked Games 64 Logo" class="logo">
+    <div class="header-links">
+      <a class="homelink" href="">Home</a>
+      <a href="/games">Games</a>
+      <a href="/about">About</a>
+    </div>
+  </div>
 
-	<div class="mdl-grid">
-		<div class="mdl-cell mdl-cell--3-col">
-			<!-- Textfield with Floating Label -->
-			<form action="#">
-				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<input class="mdl-textfield__input" type="text" name="message" id="sample3">
-					<label class="mdl-textfield__label" for="sample3">Your Bakery Name</label>
-				</div>
-			</form>
-		</div>
-		<div class="mdl-cell mdl-cell--1-col">
-			<!-- Colored mini FAB button -->
-			<button id="sub" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button">
-  <i class="material-icons">send</i>
-</button></div>
-	</div>
+  <div class="website-body">    
+    <div id="games-sidebar" class="sidebar glass">            <input oninput="loadGames(this.value)" placeholder="Search for a game..." class="searchinput">
+            <div id="searchresults">
+                <a href="/games/minecraft"><img src="https://cdn2.steamgriddb.com/icon/bf6423635e56a99e9df17852c6bfadca/32/512x512.png"> Minecraft</a>
+                <a href="/games/cookie-clicker"><img src="https://play-lh.googleusercontent.com/Z1MOuuiD05ZN5LkVmMEvKF0mqAc-FknaQ2j8s4dZiO-LSPQX4EEA3RVJdlQEtxe96ok"> Cookie Clicker</a>
+                <a href="/games/geometry-dash"><img src="https://cdn2.steamgriddb.com/icon_thumb/31073475fc4fe0f27c6b876472f0888e.png"> Geometry Dash</a>
+                <a href="/games/slope"><img src="https://play-lh.googleusercontent.com/uJn2i9h7KxYQarC_c3K4qH6o7gLtflFnhD_dN14MNkzHJ1NeNFzCL69jpB5mT0vCoQs"> Slope</a>
+                <a href="/games/super-mario-64"><img src="https://cdn2.steamgriddb.com/icon_thumb/f2201f5191c4e92cc5af043eebfd0946.png"> Super Mario 64</a>
+                <a href="/games/chess"><img src="https://img.icons8.com/?size=512&amp;id=C5LTcmsc3cr0&amp;format=png"> Chess</a>
+                <a href="/games/2048"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/2048_Icon.png"> 2048</a>
+                <a href="/games/blackjack"><img src="https://www.shutterstock.com/image-vector/blackjack-hand-spades-black-jack-600nw-2122961363.jpg"> Blackjack</a>
+                <a href="/games/snow-rider-3d"><img src="https://snowrider-3d.io/imgs/snowrider3d.png"> Snow Rider 3D</a>
+                <a href="/games/run-3"><img src="https://cdn2.steamgriddb.com/icon_thumb/833cc7b10966fa0202801496bffccb37.png"> Run 3</a>
+                <a href="/games/basketball-stars"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxKMfiklMLmio5eJsDFtmN0QYrbSjEfp3EQg&amp;s"> Basketball Stars</a>
+                <a href="/games/five-nights-at-freddys"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVIU3tE9qUPnGICYK5mM1ykVsUt43VVIndUQ&amp;s"> Five Nights At Freddy's</a>
+                <a href="/games/tetris"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyD4tAXKhU2oPSZJNWjaUTjkjL7BioAh-I1A&amp;s"> Tetris</a>
+                <a href="/games/block-blast"><img src="https://play-lh.googleusercontent.com/oCQy_qq3Tl5GHW4kI9unYYaxVv8Ly8cVAcMS4lboRLV047uPh2aW_FtXcY5AGRMxAw=w240-h480-rw"> Block Blast</a>
+                <a href="/games/retro-bowl"><img src="https://play-lh.googleusercontent.com/WRM5Y1xZmzcCP1YtO5zl6G2g7CU5c5ZfjX4UVrgi1bpNgkfy-wuB-bQx3kkeRfaGYQ"> Retro Bowl</a>
+                <a href="/games/snake"><img src="https://play-lh.googleusercontent.com/TRA73lTIzi73huCkSF58FFUk_RM4C2Zu5ZOJuLM6BotUGZ4qOEXQigCUjCDpTRQMWW8I=w240-h480-rw"> Snake</a>
+                <a href="/games/a-dance-of-fire-and-ice"><img src="https://cdn2.steamgriddb.com/icon/1f034ade6c58fc442a66e4b2b71abbf8/32/256x256.png"> A Dance of Fire And Ice</a>
+                <a href="/games/flying-car-simulator"><img src="https://play-lh.googleusercontent.com/aJxK96ALe9MHq0y9Asp0ZqKNZ0nxp-bvqG6JZ-9D30MLfc77Wn5TasQiySAA3NoWdSnM=w240-h480-rw"> Flying Car Simulator</a>
+                <a href="/games/getting-over-it"><img src="https://cdn.now.gg/apps-content/com.nowgg.h5.pub501.app51293/game-tiles/getting-over-it.jpg"> Getting Over It</a>
+                <a href="/games/balatro"><img src="/assets/game-icons/balatro.png"> Balatro</a>
+            
+ <!-- ts is harmless text -->
+                 <a href="/games/drive-mad"><img src="/assets/game-icons/drive-mad.png"> Drive Mad</a></div></div>
 
-	<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
-		<thead>
-			<tr>
-				<th class="mdl-data-table__cell--non-numeric">Name</th>
-				<th>Cookies/Press</th>
-				<th>Cost</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td class="mdl-data-table__cell--non-numeric">Granny</td>
-				<td>×2 More</td>
-				<td>30 Cookies</td>
-			</tr>
-			<tr>
-				<td class="mdl-data-table__cell--non-numeric">Factory</td>
-				<td>×10 More</td>
-				<td>500 Cookies</td>
-			</tr>
-			<tr>
-				<td class="mdl-data-table__cell--non-numeric">Plant</td>
-				<td>×30 More</td>
-				<td>1000 Cookies</td>
-			</tr>
-			<tr>
-				<td class="mdl-data-table__cell--non-numeric">Time Machine</td>
-				<td>1000× More</td>
-				<td>100000 Cookies</td>
-			</tr>
-		</tbody>
-	</table>
+    <div class="content">
+      <!-- Game Banner -->
+      <div class="game-banner">
+        <img src="/assets/banners/cookie-clicker.png" alt="Cookie Clicker banner">
+        <h1 class="game-header">Cookie Clicker Unblocked</h1>
+      </div>
 
-	<p>Intructions: Click the cookie, to create more cookies. You upgrade automatically when you have a specifc amount of cookies (see upgrade table)</p>
+      <p style="font-style: italic; margin: 10px; width: 95%;">Cookie Clicker is free to play! Today, anytime, anywhere.</p>
 
-	<div id="numbers"></div>
+      <!-- Game Embed -->
+      <div class="game">
+        <div class="iframe">
+          <iframe id="game-iframe" src="/games-src/cookies/cookie-clicker.html"></iframe>
+          <div class="gamebar glass"><div>Cookie Clicker</div>
+            <div id="stats"></div>
+            <img onclick="likeGame();" id="like-btn" src="../assets/icons/heart_plus.svg" alt="Like this game">
+            <img onclick="openFullscreen();" id="fullscreen-btn" src="../assets/icons/fullscreen.svg" alt="Play fullscreen">
+          </div>
+        </div>
+      </div>
 
-	<!-- <svg width = "400" height="900">
-        <line x1 ="100" y1 = "200" x2 = "400" y2 = "300" stroke= "red"/>
-      </svg>-->
+      <div class="game-description glass">
+        <h1>🍪 Cookie Clicker Unblocked – Play Online Free</h1>
+
+<p><strong>Cookie Clicker Unblocked</strong> is the ultimate idle game that started a worldwide clicking craze. What begins with a single cookie quickly turns into an empire of bakeries, grandmas, and cosmic cookie factories producing sweets by the billions. It’s simple, addicting, and oddly satisfying — and now, with the unblocked version, you can play from anywhere, whether you’re at school, work, or home.</p>
+
+<p>Developed by <strong>Orteil</strong> and first released in 2013, Cookie Clicker became a cultural phenomenon in the incremental game genre. The premise is deceptively simple: click the giant cookie to bake cookies, then use those cookies to buy upgrades and automated structures that bake even more cookies. It’s a never-ending cycle of progress, upgrades, and ridiculous fun that rewards both active play and patience. The unblocked edition brings all this to your browser without any restrictions or downloads.</p>
+
+<h2>�� How to Play Cookie Clicker Unblocked</h2>
+<p>At its heart, Cookie Clicker is about one thing: clicking. But behind that simplicity lies a surprisingly deep strategy. You start with one cookie, click to bake more, and spend your earnings on upgrades that boost your production.</p>
+
+<ul>
+  <li><strong>Click</strong> the giant cookie to bake cookies manually.</li>
+  <li><strong>Buy upgrades</strong> like cursors, grandmas, farms, and factories to automate cookie production.</li>
+  <li><strong>Unlock achievements</strong> as your bakery empire grows.</li>
+  <li><strong>Prestige</strong> to reset your game with bonuses and climb to new levels of cookie-making mastery.</li>
+</ul>
+
+<p>The gameplay never really ends — you can keep expanding, optimizing, and unlocking new features indefinitely. The more you play, the faster your cookie production skyrockets, turning your humble bakery into a galactic confectionery powerhouse.</p>
+
+<h2>🍫 Upgrades & Buildings</h2>
+<p>One of the most addictive parts of <strong>Cookie Clicker</strong> is its huge variety of upgrades and buildings. Each purchase exponentially increases your cookie output, making every decision meaningful. Here are some key upgrades you’ll encounter:</p>
+
+<ul>
+  <li><strong>Cursors:</strong> The first automation tool — they click for you.</li>
+  <li><strong>Grandmas:</strong> Sweet old ladies who bake cookies by hand, and get stronger with synergy upgrades.</li>
+  <li><strong>Farms & Mines:</strong> Industrialize your baking operation with automated resources.</li>
+  <li><strong>Factories & Banks:</strong> Produce cookies at massive scales using advanced technology.</li>
+  <li><strong>Time Machines:</strong> Go back in time to bake cookies before you even started.</li>
+  <li><strong>Antimatter Condensers:</strong> Compress reality itself into cookies.</li>
+</ul>
+
+<p>Each building you buy unlocks new upgrades, achievements, and even secret events. Over time, you’ll discover new layers of depth that make Cookie Clicker far more than just a casual idle game.</p>
+
+<h2>💰 Prestige & Heavenly Upgrades</h2>
+<p>When you reach a high enough cookie total, you’ll unlock the <strong>Prestige system</strong>. This allows you to "ascend" — essentially resetting your game but earning <em>Heavenly Chips</em> in the process. These chips can be spent on powerful permanent upgrades that make your next run even more efficient. It’s the game’s way of rewarding dedication while keeping the experience fresh and endlessly replayable.</p>
+
+<h2>🌍 Game Background & Legacy</h2>
+<p><em>Cookie Clicker</em> started as a small web experiment by French developer Julien “Orteil” Thiennot, but it quickly became a viral hit. Its humorous upgrades, quirky writing, and self-aware charm helped it stand out from other idle games. Over the years, the game has received countless updates, new mechanics, and even a Steam version — all while keeping its core simplicity intact.</p>
+
+<p>The unblocked edition stays true to the original, delivering the same satisfying experience in your browser. Whether you’re a longtime fan or a newcomer discovering it for the first time, you’ll instantly fall into its relaxing rhythm of clicking, upgrading, and expanding.</p>
+
+<h2>🍪 Tips for Beginners</h2>
+<p>If you’re just starting your cookie empire, here are some helpful tips to speed up your growth:</p>
+
+<ul>
+  <li><strong>Click like crazy</strong> early on — manual clicking gives you a huge boost.</li>
+  <li><strong>Invest in cursors and grandmas</strong> first; they’re cheap and pay off quickly.</li>
+  <li><strong>Buy upgrades</strong> as soon as possible — small boosts add up fast.</li>
+  <li><strong>Keep the game open</strong> — it continues producing cookies even when idle.</li>
+  <li><strong>Use golden cookies</strong> wisely — they give temporary but massive bonuses.</li>
+</ul>
+
+<p>Cookie Clicker rewards both patience and efficiency. Even when you’re not clicking, your empire keeps growing in the background, which makes coming back to check your progress all the more satisfying.</p>
+
+<h2>🥇 Achievements & Hidden Secrets</h2>
+<p>Part of what makes Cookie Clicker so addictive is the endless stream of achievements and Easter eggs. There are hundreds to unlock, from simple milestones like “Bake 1,000 cookies” to absurd challenges like “Own 200 grandmas.” Some upgrades and events even reference pop culture or make fun of your own obsession with baking more cookies. Keep an eye out for hidden achievements, golden cookie combos, and seasonal events that add extra layers of fun.</p>
+
+<h2>❓ Frequently Asked Questions</h2>
+<ul>
+  <li><strong>Is Cookie Clicker Unblocked free?</strong> Yes! You can play it directly in your browser without paying or installing anything.</li>
+  <li><strong>Does progress save?</strong> Most unblocked versions save your data locally, so you can continue where you left off.</li>
+  <li><strong>Can I play on mobile?</strong> Yes, many unblocked versions are touch-friendly and work great on phones and tablets.</li>
+  <li><strong>Is there an end?</strong> Not really — the fun is in watching your numbers grow forever!</li>
+  <li><strong>What’s the goal?</strong> Bake as many cookies as possible and see how far your empire can expand.</li>
+</ul>
+
+<h2>🚀 Why Play Cookie Clicker Unblocked?</h2>
+<p>Many schools and workplaces block gaming websites, but with <em>Cookie Clicker Unblocked</em>, you can bake cookies anywhere. It’s a perfect way to relax, kill time, or challenge your friends to see who can produce the most cookies. Best of all, it doesn’t require fast reflexes or complex controls — just simple, satisfying progress.</p>
+
+<p>Cookie Clicker isn’t just about clicking; it’s about watching your tiny actions snowball into astronomical results. It’s a humorous, calming, and endlessly rewarding experience that keeps you coming back for “just one more upgrade.”</p>
+
+<p><strong>👉 Play Cookie Clicker Unblocked now and start baking your way to infinity — one delicious click at a time.</strong></p>
+
+
+        <h2>🖼 Screenshots</h2>
+        <img src="/assets/screenshots/cookie-clicker1.png" alt="Cookie Clicker Level 1">
+        <img src="/assets/screenshots/cookie-clicker2.png" alt="Cookie Clicker advanced level">
+
+        <h2>▶ Beginner Tutorial Video</h2>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/2Dx76lD8Scc?si=SmK3N83tGj7Da9oU" title="Cookie Clicker Gameplay" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <!-- Suggested Games -->
+      <div class="game-suggest glass">
+        Suggested for you
+        <div id="suggested" class="game-suggest-carousel"></div>
+      </div>
+
+      <!-- Footer -->
+        <a href="/privacypolicy">Privacy Policy</a>
+        <a href="/termsandconditions">Terms & Conditions</a>
+        <a href="/contact">Contact Us</a>
+    </div>
+  </div>
+
+  <div class="cool-background"></div>
 </body>
-
 </html>
