@@ -19,10 +19,7 @@
         p { color: #aaaaaa; margin-bottom: 20px; }
 
         /* --- SEARCH BAR --- */
-        #search-container {
-            margin-bottom: 30px;
-        }
-
+        #search-container { margin-bottom: 30px; }
         #search-bar {
             padding: 12px;
             width: 300px;
@@ -34,11 +31,7 @@
             outline: none;
             transition: 0.3s;
         }
-
-        #search-bar:focus {
-            border-color: #00bcd4;
-            width: 320px; /* Subtle expansion effect */
-        }
+        #search-bar:focus { border-color: #00bcd4; width: 320px; }
 
         /* --- GRID LAYOUT --- */
         .game-grid { 
@@ -61,12 +54,7 @@
             transition: transform 0.2s, border-color 0.2s; 
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
-
-        .game-card:hover { 
-            transform: translateY(-5px); 
-            border-color: #00bcd4; 
-        }
-
+        .game-card:hover { transform: translateY(-5px); border-color: #00bcd4; }
         .game-card img {
             width: 100%;
             height: 150px;
@@ -75,7 +63,6 @@
             margin-bottom: 10px;
             background-color: #000;
         }
-
         .game-title { font-weight: bold; font-size: 1.1em; }
 
         /* --- POPUP PLAYER (MODAL) --- */
@@ -98,17 +85,25 @@
             height: 80%;
             box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
             background: #000;
+            position: relative;
+        }
+        
+        /* Make sure iframes and ruffle fill the box */
+        #player-wrapper iframe, #player-wrapper ruffle-player {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
         }
 
         /* Modal Controls */
         .controls {
             width: 80%;
             display: flex;
-            justify-content: flex-end; /* Align buttons to the right */
+            justify-content: flex-end;
             gap: 10px;
             margin-bottom: 10px;
         }
-
         .btn {
             padding: 8px 16px;
             cursor: pointer;
@@ -118,10 +113,8 @@
             border: none;
             transition: 0.2s;
         }
-
         .close-btn { background: #d32f2f; color: white; }
         .close-btn:hover { background: #b71c1c; }
-
         .fullscreen-btn { background: #0288d1; color: white; }
         .fullscreen-btn:hover { background: #01579b; }
 
@@ -129,31 +122,36 @@
 </head>
 <body>
 
-    <h1>Unblocked Games</h1>
-    <p>Select a game to play.</p>
+    <h1>Interactive Archive</h1>
+    <p>Select a simulation to begin.</p>
 
     <div id="search-container">
-        <input type="text" id="search-bar" onkeyup="filterGames()" placeholder="Search for a game...">
+        <input type="text" id="search-bar" onkeyup="filterGames()" placeholder="Search...">
     </div>
 
     <div class="game-grid" id="game-list">
         
-        <div class="game-card" onclick="playGame('alien_hominid.swf')">
-            <img src="ah.png" alt="Game 1">
-            <div class="game-title">Alien Hominid</div>
-        </div>
-
         <div class="game-card" onclick="playGame('btd4.swf')">
-            <img src="btd4.png" alt="Game 2">
+            <img src="btd4.png" alt="Flash Game">
             <div class="game-title">BTD 4</div>
         </div>
 
+        <div class="game-card" onclick="playGame('slope.html')">
+            <img src="slope.png" alt="HTML Game">
+            <div class="game-title">Slope </div>
+        </div>
+
+        <div class="game-card" onclick="playGame('alien_hominid.swf')">
+            <img src="ah.png" alt="Flash Game">
+            <div class="game-title">Alien Hominid</div>
+        </div>
+
         <div class="game-card" onclick="playGame('brawl-royale.swf')">
-            <img src="br.png" alt="Game 3">
+            <img src="br.png" alt="Flash Game">
             <div class="game-title">Brawl Royale</div>
         </div>
 
-        </div>
+    </div>
 
     <div id="game-modal">
         <div class="controls">
@@ -167,35 +165,52 @@
     <script>
         // --- 1. SETUP RUFFLE ---
         window.RufflePlayer = window.RufflePlayer || {};
-        
-        window.addEventListener("load", (event) => {
-            const ruffle = window.RufflePlayer.newest();
-            const player = ruffle.createPlayer();
-            const container = document.getElementById("player-wrapper");
-            container.appendChild(player);
-            window.myRufflePlayer = player; 
-        });
+        // We do not auto-create the player yet; we do it on demand.
 
         // --- 2. GAME CONTROLS ---
-        function playGame(swfPath) {
+        function playGame(filePath) {
             const modal = document.getElementById('game-modal');
+            const wrapper = document.getElementById('player-wrapper');
+            
+            // Clear previous game (iframe or ruffle)
+            wrapper.innerHTML = "";
             modal.style.display = "flex"; 
-            if (window.myRufflePlayer) {
-                window.myRufflePlayer.load(swfPath);
+
+            // CHECK FILE TYPE
+            if (filePath.endsWith(".swf")) {
+                // --- LOAD FLASH GAME ---
+                const ruffle = window.RufflePlayer.newest();
+                const player = ruffle.createPlayer();
+                wrapper.appendChild(player);
+                player.load(filePath);
+                window.activeGameType = "swf";
+                window.myRufflePlayer = player;
+
+            } else {
+                // --- LOAD HTML GAME ---
+                // We create an iframe for HTML files
+                const iframe = document.createElement("iframe");
+                iframe.src = filePath;
+                iframe.allow = "autoplay; fullscreen; gamepad"; // Allow features
+                wrapper.appendChild(iframe);
+                window.activeGameType = "html";
             }
         }
 
         function closeGame() {
             const modal = document.getElementById('game-modal');
+            const wrapper = document.getElementById('player-wrapper');
+
             modal.style.display = "none"; 
+            
             // Exit fullscreen if active
             if (document.fullscreenElement) {
                 document.exitFullscreen();
             }
-            // Stop game
-            if (window.myRufflePlayer) {
-                window.myRufflePlayer.pause();
-            }
+
+            // Destroy the game content to stop audio/logic
+            wrapper.innerHTML = "";
+            window.myRufflePlayer = null;
         }
 
         // --- 3. FULLSCREEN LOGIC ---
@@ -212,25 +227,19 @@
 
         // --- 4. SEARCH LOGIC ---
         function filterGames() {
-            // Get input value
             const input = document.getElementById('search-bar').value.toUpperCase();
-            // Get all game cards
             const cards = document.getElementsByClassName('game-card');
 
-            // Loop through all cards and hide those that don't match
             for (let i = 0; i < cards.length; i++) {
                 const titleElement = cards[i].getElementsByClassName('game-title')[0];
                 const titleText = titleElement.textContent || titleElement.innerText;
-                
                 if (titleText.toUpperCase().indexOf(input) > -1) {
-                    cards[i].style.display = ""; // Show
+                    cards[i].style.display = ""; 
                 } else {
-                    cards[i].style.display = "none"; // Hide
+                    cards[i].style.display = "none"; 
                 }
             }
         }
     </script>
 </body>
 </html>
-
-
