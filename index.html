@@ -42,23 +42,29 @@
         <div id="player"></div>
     </div>
 
-    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
-    <script>
-        const ruffle = window.RufflePlayer.newest();
-        const player = ruffle.createPlayer();
-        const container = document.getElementById("player");
-        container.appendChild(player);
+   <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+<script>
+    window.RufflePlayer = window.RufflePlayer || {};
+    window.RufflePlayer.config = {
+        "publicPath": undefined,
+        "polyfill": true
+    };
 
-        function playGame(swfFile) {
-            document.getElementById('game-container').style.display = 'block';
-            player.load(swfFile);
-        }
+    const ruffle = window.RufflePlayer.newest();
+    const player = ruffle.createPlayer();
+    const container = document.getElementById("player");
+    container.appendChild(player);
 
-        function closeGame() {
-            document.getElementById('game-container').style.display = 'none';
-            player.pause(); // Stops the music/game
-        }
-    </script>
-</body>
+    function playGame(swfFile) {
+        document.getElementById('game-container').style.display = 'block';
+        player.load(swfFile);
+    }
+
+    function closeGame() {
+        document.getElementById('game-container').style.display = 'none';
+        player.pause();
+    }
+</script>
 
 </html>
+
