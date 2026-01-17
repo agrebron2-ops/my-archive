@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Class Archive Project</title>
     <style>
-        /* Dark Theme Styling */
+        /* --- CORE STYLES --- */
         body { 
             background-color: #121212; 
             color: #e0e0e0; 
@@ -15,10 +15,32 @@
             text-align: center; 
         }
 
-        h1 { margin-bottom: 10px; color: #ffffff; }
-        p { color: #aaaaaa; margin-bottom: 30px; }
+        h1 { margin-bottom: 5px; color: #ffffff; }
+        p { color: #aaaaaa; margin-bottom: 20px; }
 
-        /* The Grid Layout */
+        /* --- SEARCH BAR --- */
+        #search-container {
+            margin-bottom: 30px;
+        }
+
+        #search-bar {
+            padding: 12px;
+            width: 300px;
+            border-radius: 25px;
+            border: 2px solid #333;
+            background-color: #1e1e1e;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        #search-bar:focus {
+            border-color: #00bcd4;
+            width: 320px; /* Subtle expansion effect */
+        }
+
+        /* --- GRID LAYOUT --- */
         .game-grid { 
             display: flex; 
             flex-wrap: wrap; 
@@ -28,7 +50,7 @@
             margin: 0 auto; 
         }
 
-        /* Individual Game Cards */
+        /* --- GAME CARD --- */
         .game-card { 
             background: #1e1e1e; 
             border: 1px solid #333; 
@@ -56,7 +78,7 @@
 
         .game-title { font-weight: bold; font-size: 1.1em; }
 
-        /* The Popup Player (Modal) */
+        /* --- POPUP PLAYER (MODAL) --- */
         #game-modal { 
             display: none; 
             position: fixed; 
@@ -78,79 +100,86 @@
             background: #000;
         }
 
+        /* Modal Controls */
         .controls {
             width: 80%;
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-end; /* Align buttons to the right */
+            gap: 10px;
             margin-bottom: 10px;
         }
 
-        .close-btn { 
-            background: #d32f2f; 
-            color: white; 
-            border: none; 
-            padding: 8px 16px; 
-            cursor: pointer; 
-            border-radius: 4px; 
+        .btn {
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 14px;
+            border: none;
+            transition: 0.2s;
         }
 
+        .close-btn { background: #d32f2f; color: white; }
         .close-btn:hover { background: #b71c1c; }
+
+        .fullscreen-btn { background: #0288d1; color: white; }
+        .fullscreen-btn:hover { background: #01579b; }
 
     </style>
 </head>
 <body>
 
-    <h1>Unblocked Games</h1>
-    <p>Select a game to play.</p>
+    <h1>Interactive Archive</h1>
+    <p>Select a simulation to begin.</p>
 
-    <div class="game-grid">
-        
-        <div class="game-card" onclick="playGame('alien_hominid.swf')">
-            <img src="https://via.placeholder.com/200x150?text=Game+1" alt="Game 1">
-            <div class="game-title">Alien Hominid</div>
-        </div>
-
-        <div class="game-card" onclick="playGame('bloonstd4exp.swf')">
-            <img src="https://via.placeholder.com/200x150?text=Game+2" alt="Game 2">
-            <div class="game-title">BTD 4</div>
-        </div>
-
-        <div class="game-card" onclick="playGame('brawl-royale-28995ed4.swf')">
-            <img src="https://via.placeholder.com/200x150?text=Game+3" alt="Game 3">
-            <div class="game-title">Brawl Royale</div>
-        </div>
-
+    <div id="search-container">
+        <input type="text" id="search-bar" onkeyup="filterGames()" placeholder="Search for a game...">
     </div>
+
+    <div class="game-grid" id="game-list">
+        
+        <div class="game-card" onclick="playGame('game1.swf')">
+            <img src="https://via.placeholder.com/200x150?text=Game+1" alt="Game 1">
+            <div class="game-title">Super Mario</div>
+        </div>
+
+        <div class="game-card" onclick="playGame('game2.swf')">
+            <img src="https://via.placeholder.com/200x150?text=Game+2" alt="Game 2">
+            <div class="game-title">Doom</div>
+        </div>
+
+        <div class="game-card" onclick="playGame('game3.swf')">
+            <img src="https://via.placeholder.com/200x150?text=Game+3" alt="Game 3">
+            <div class="game-title">Tetris</div>
+        </div>
+
+        </div>
 
     <div id="game-modal">
         <div class="controls">
-            <button class="close-btn" onclick="closeGame()">X Close Game</button>
+            <button class="btn fullscreen-btn" onclick="toggleFullscreen()">[ ] Fullscreen</button>
+            <button class="btn close-btn" onclick="closeGame()">X Close</button>
         </div>
         <div id="player-wrapper"></div>
     </div>
 
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <script>
-        // 1. Configure Ruffle
+        // --- 1. SETUP RUFFLE ---
         window.RufflePlayer = window.RufflePlayer || {};
         
-        // 2. Initialize Player
         window.addEventListener("load", (event) => {
             const ruffle = window.RufflePlayer.newest();
             const player = ruffle.createPlayer();
             const container = document.getElementById("player-wrapper");
             container.appendChild(player);
-            window.myRufflePlayer = player; // Save it to a global variable
+            window.myRufflePlayer = player; 
         });
 
-        // 3. Game Logic
+        // --- 2. GAME CONTROLS ---
         function playGame(swfPath) {
             const modal = document.getElementById('game-modal');
-            modal.style.display = "flex"; // Show the window
-            
-            // Load the specific SWF file
+            modal.style.display = "flex"; 
             if (window.myRufflePlayer) {
                 window.myRufflePlayer.load(swfPath);
             }
@@ -158,11 +187,46 @@
 
         function closeGame() {
             const modal = document.getElementById('game-modal');
-            modal.style.display = "none"; // Hide the window
-            
-            // Stop the game audio/logic
+            modal.style.display = "none"; 
+            // Exit fullscreen if active
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            }
+            // Stop game
             if (window.myRufflePlayer) {
                 window.myRufflePlayer.pause();
+            }
+        }
+
+        // --- 3. FULLSCREEN LOGIC ---
+        function toggleFullscreen() {
+            const elem = document.getElementById('player-wrapper');
+            if (!document.fullscreenElement) {
+                elem.requestFullscreen().catch(err => {
+                    alert(`Error enabling full-screen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // --- 4. SEARCH LOGIC ---
+        function filterGames() {
+            // Get input value
+            const input = document.getElementById('search-bar').value.toUpperCase();
+            // Get all game cards
+            const cards = document.getElementsByClassName('game-card');
+
+            // Loop through all cards and hide those that don't match
+            for (let i = 0; i < cards.length; i++) {
+                const titleElement = cards[i].getElementsByClassName('game-title')[0];
+                const titleText = titleElement.textContent || titleElement.innerText;
+                
+                if (titleText.toUpperCase().indexOf(input) > -1) {
+                    cards[i].style.display = ""; // Show
+                } else {
+                    cards[i].style.display = "none"; // Hide
+                }
             }
         }
     </script>
