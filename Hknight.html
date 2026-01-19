@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hollow Knight</title>
     <style>
+        /* Forces the game to be the entire screen with no borders */
         body, html {
             margin: 0;
             padding: 0;
@@ -14,23 +15,9 @@
             background-color: #000;
         }
 
-        /* This container forces the 16:9 aspect ratio 
-           so the game doesn't stretch or look weird.
-        */
-        .game-wrapper {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            max-width: 100vw;
-            max-height: 100vh;
-        }
-
         iframe {
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             border: none;
             display: block;
         }
@@ -38,14 +25,12 @@
 </head>
 <body>
 
-    <div class="game-wrapper">
-        <iframe 
-            src="https://turbowarp.org/464834467/embed?autoplay=1" 
-            allowtransparency="true" 
-            allowfullscreen="true" 
-            scrolling="no">
-        </iframe>
-    </div>
+    <iframe 
+        src="https://turbowarp.org/1064858970/embed?autoplay=1&stuck=1" 
+        allowtransparency="true" 
+        allowfullscreen="true" 
+        scrolling="no">
+    </iframe>
 
 </body>
 </html>
