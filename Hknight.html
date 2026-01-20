@@ -2,52 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hollow Knight - Fullscreen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Hollow Knight - No Scroll</title>
     <style>
+        /* 1. Hide scrollbars on the main window */
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             width: 100%;
-            overflow: hidden;
+            overflow: hidden; 
             background-color: #000;
         }
 
-        .wrapper {
+        /* 2. Create a clipping container */
+        .game-wrapper {
             position: absolute;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            overflow: hidden;
+            overflow: hidden; /* This crops anything outside the screen */
         }
 
+        /* 3. The Iframe settings */
         iframe {
-            /* This makes the iframe much larger than the screen */
+            position: absolute;
+            /* Adjust top/height to crop the site header/footer */
+            top: -65px; 
+            left: 0;
             width: 100vw;
-            height: 115vh; 
-            
-            /* This moves the iframe up to hide the top header */
-            margin-top: -10vh; 
+            height: calc(100vh + 65px);
             
             border: none;
-            overflow: hidden;
+            overflow: hidden; /* Prevents internal scrolling */
         }
 
-        /* This hides any scrollbars that might appear from the external site */
+        /* 4. The 'Nuclear Option' for scrollbars (Chrome/Safari/Edge) */
         iframe::-webkit-scrollbar {
             display: none;
+            width: 0 !important;
+        }
+        
+        /* 5. The 'Nuclear Option' for Firefox */
+        iframe {
+            scrollbar-width: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
+    <div class="game-wrapper">
         <iframe 
             src="https://hollowknightgame.github.io/" 
-            scrolling="no"
-            allowfullscreen>
+            scrolling="no" 
+            loading="lazy">
         </iframe>
     </div>
 
