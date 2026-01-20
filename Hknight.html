@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Hollow Knight - Fullscreen</title>
+    <title>Hollow Knight - Unblocked</title>
     <style>
+        /* Force the body to take up the full screen with no scrollbars */
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             width: 100%;
             overflow: hidden;
-            background-color: #000;
+            background-color: #000; /* Keeps screen black while loading */
         }
+
+        /* Make the iframe cover every pixel */
         iframe {
             position: absolute;
             top: 0;
@@ -24,6 +27,13 @@
     </style>
 </head>
 <body>
-    <iframe src="https://web-ports.github.io/hollow-knight/" allowfullscreen></iframe>
+
+    <iframe 
+        src="https://hollowknightgame.github.io/" 
+        allowfullscreen="true" 
+        webkitallowfullscreen="true" 
+        mozallowfullscreen="true">
+    </iframe>
+
 </body>
 </html>
