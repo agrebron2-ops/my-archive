@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2048 - Fullscreen</title>
+    <style>
+        /* Force the browser to hide all scrollbars and margins */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: #faf8ef; /* Matching 2048 original background */
+        }
+
+        /* The container that crops out the website header/footer */
+        .game-viewport {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        iframe {
+            position: absolute;
+            
+            /* Shifts the site up to hide the title and score bars */
+            top: -160px; 
+            left: 0;
+
+            /* Makes the iframe tall enough to push the footer off-screen */
+            width: 100vw;
+            height: calc(100vh + 300px); 
+            
+            border: none;
+            
+            /* Modern way to hide scrollbars inside the iframe */
+            scrollbar-width: none;
+        }
+
+        iframe::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-viewport">
+        <iframe 
+            src="https://mgarciaisaia.github.io/2048/" 
+            scrolling="no">
+        </iframe>
+    </div>
+
+</body>
+</html>
