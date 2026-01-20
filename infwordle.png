@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Infinite Wordle - Unblocked</title>
+    <style>
+        /* Kill all scrollbars and margins */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: #121213; /* Matching Wordle's dark mode color */
+        }
+
+        /* Fullscreen container for the game */
+        .container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            
+            /* Hide the host site's scrollbars */
+            scrollbar-width: none; /* Firefox */
+        }
+
+        /* Hide scrollbars for Chrome/Safari */
+        iframe::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <iframe 
+            src="https://mikhad.github.io/wordle/#infinite" 
+            allowfullscreen 
+            scrolling="no">
+        </iframe>
+    </div>
+
+</body>
+</html>
