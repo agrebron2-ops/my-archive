@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hollow Knight - Game Only</title>
+    <title>Hollow Knight - Fullscreen</title>
     <style>
         body, html {
             margin: 0;
@@ -14,8 +14,7 @@
             background-color: #000;
         }
 
-        /* The 'Viewbox' that hides the rest of the site */
-        .game-window {
+        .wrapper {
             position: absolute;
             top: 0;
             left: 0;
@@ -24,26 +23,32 @@
             overflow: hidden;
         }
 
-        /* Adjust these 'top' and 'scale' values to center the game */
         iframe {
-            position: absolute;
+            /* This makes the iframe much larger than the screen */
+            width: 100vw;
+            height: 115vh; 
             
-            /* Shifts the site up to hide the header/title */
-            top: -120px; 
-            left: 0;
-
-            /* Makes the iframe larger than the screen so we can zoom into the game */
-            width: 100%;
-            height: calc(100% + 120px); 
+            /* This moves the iframe up to hide the top header */
+            margin-top: -10vh; 
             
             border: none;
+            overflow: hidden;
+        }
+
+        /* This hides any scrollbars that might appear from the external site */
+        iframe::-webkit-scrollbar {
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="game-window">
-        <iframe src="https://hollowknightgame.github.io/" allowfullscreen></iframe>
+    <div class="wrapper">
+        <iframe 
+            src="https://hollowknightgame.github.io/" 
+            scrolling="no"
+            allowfullscreen>
+        </iframe>
     </div>
 
 </body>
