@@ -5,18 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Monkey Mart - Fullscreen</title>
     <style>
-        /* 1. Reset everything to fill the window */
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             width: 100%;
             overflow: hidden;
-            background-color: #795548; /* Brown background to match the game */
+            background-color: #000;
         }
 
-        /* 2. Create the viewbox to crop the host site */
-        .viewport {
+        .container {
             position: absolute;
             top: 0;
             left: 0;
@@ -25,23 +23,18 @@
             overflow: hidden;
         }
 
-        /* 3. The zoomed-out game iframe */
         iframe {
             position: absolute;
-            
-            /* Shifts the site up to hide the original site header */
-            top: -80px; 
-            left: 50%;
-            
-            /* Scale set to 0.85 (85%) so you can see the whole mart */
-            transform: translateX(-50%) scale(0.85);
-            transform-origin: top;
-
-            width: 100vw;
-            height: calc(100vh + 150px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border: none;
             
-            /* Kill the scrollbars */
+            /* Zoom adjustment: 0.85 makes the game slightly smaller so it's not cut off */
+            transform: scale(0.85); 
+            transform-origin: center center;
+
             scrollbar-width: none;
         }
 
@@ -52,9 +45,9 @@
 </head>
 <body>
 
-    <div class="viewport">
+    <div class="container">
         <iframe 
-            src="https://monkey-mart.github.io/" 
+            src="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/bobydob/md5@main/mm.xml" 
             scrolling="no" 
             allowfullscreen>
         </iframe>
